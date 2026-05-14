@@ -63,6 +63,9 @@ void Voice::Init(bool reset_calibration) {
   portamento_exponential_shape_ = false;
   
   trigger_duration_ = 2;
+  trigger_pulse_ = 0;
+  trigger_phase_ = 0;
+  trigger_phase_increment_ = 0;
   
   if (reset_calibration) {
     for (uint8_t i = 0; i < kNumOctaves; ++i) {
