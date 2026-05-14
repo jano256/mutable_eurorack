@@ -179,6 +179,9 @@ class Voice {
   inline bool trigger() const  {
     return gate_ && trigger_pulse_;
   }
+  inline bool drum_trigger() const {
+    return gate_ && trigger_phase_increment_ > 0;
+  }
   
   uint16_t trigger_dac_code() const;
   

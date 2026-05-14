@@ -382,6 +382,17 @@ void Multi::GetCvGate(uint16_t* cv, bool* gate) {
       gate[3] = reset_or_playing_flag();
       break;
 
+    case LAYOUT_FOUR_DRUMS:
+      cv[0] = voice_[0].velocity_dac_code();
+      cv[1] = voice_[1].velocity_dac_code();
+      cv[2] = voice_[2].velocity_dac_code();
+      cv[3] = voice_[3].velocity_dac_code();
+      gate[0] = voice_[0].drum_trigger();
+      gate[1] = voice_[1].drum_trigger();
+      gate[2] = voice_[2].drum_trigger();
+      gate[3] = voice_[3].drum_trigger();
+      break;
+
     case LAYOUT_QUAD_VOLTAGES:
       cv[0] = voice_[0].aux_cv_dac_code();
       cv[1] = voice_[1].aux_cv_dac_code();
@@ -435,6 +446,7 @@ bool Multi::GetAudioSource(uint8_t* audio_source) {
       break;
     
     case LAYOUT_QUAD_TRIGGERS:
+    case LAYOUT_FOUR_DRUMS:
     case LAYOUT_QUAD_VOLTAGES:
       audio_source[0] = 0xff;
       audio_source[1] = 0xff;
@@ -482,6 +494,7 @@ void Multi::GetLedsBrightness(uint8_t* brightness) {
     case LAYOUT_QUAD_MONO:
     case LAYOUT_QUAD_POLY:
     case LAYOUT_OCTAL_POLYCHAINED:
+    case LAYOUT_FOUR_DRUMS:
     case LAYOUT_QUAD_TRIGGERS:
     case LAYOUT_THREE_ONE:
       brightness[0] = voice_[0].gate() ? (voice_[0].velocity() << 1) : 0;
@@ -540,6 +553,7 @@ void Multi::UpdateLayout() {
       break;
       
     case LAYOUT_QUAD_TRIGGERS:
+    case LAYOUT_FOUR_DRUMS:
     case LAYOUT_QUAD_VOLTAGES:
       {
         for (uint8_t i = 0; i < 4; ++i) {
@@ -653,10 +667,11 @@ void Multi::ChangeLayout(Layout old_layout, Layout new_layout) {
       break;
       
     case LAYOUT_QUAD_TRIGGERS:
+    case LAYOUT_FOUR_DRUMS:
       {
         for (uint8_t i = 0; i < 4; ++i) {
           MidiSettings* midi = part_[i].mutable_midi_settings();
-          if (old_layout != LAYOUT_QUAD_TRIGGERS) {
+          if (old_layout != LAYOUT_QUAD_TRIGGERS && old_layout != LAYOUT_FOUR_DRUMS) {
             midi->min_note = 36 + i * 2;
             midi->max_note = 36 + i * 2;
           }

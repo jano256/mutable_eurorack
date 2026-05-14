@@ -34,7 +34,7 @@
 namespace yarns {
 
 const char* const layout_values[] = {
-  "1M", "2M", "4M", "2P", "4P", "2>", "4>", "8>", "4T", "4V", "3+1"
+  "1M", "2M", "4M", "2P", "4P", "2>", "4>", "8>", "4T", "4D", "4V", "3+1"
 };
 
 const char* const clock_division_values[] = {
@@ -818,6 +818,7 @@ const SettingIndex* const Settings::menus_[] = {
   dual_polychained_menu,
   quad_polychained_menu,
   octal_polychained_menu,
+  quad_triggers_menu,
   quad_triggers_menu,
   quad_voltages_menu,
   three_one_menu
