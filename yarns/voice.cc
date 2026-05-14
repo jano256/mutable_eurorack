@@ -195,7 +195,7 @@ void Voice::NoteOn(
 
   mod_velocity_ = velocity;
 
-  if (gate_ && trigger) {
+  if ((gate_ || trigger_phase_increment_ > 0) && trigger) {
     retrigger_delay_ = 2;
   }
   if (trigger) {
